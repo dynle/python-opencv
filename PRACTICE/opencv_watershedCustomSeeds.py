@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-road = cv2.imread('../DATA/giraffes.jpg')
+road = cv2.imread('../DATA/road_image.jpg')
 road_copy = np.copy(road)
 marker_image = np.zeros(road.shape[:2],dtype=np.int32)
 segments = np.zeros(road.shape,dtype=np.uint8)
