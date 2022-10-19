@@ -48,30 +48,30 @@ def count_fingers(thresholded,hand_segment):
     cX = (left[0]+right[0]) // 2
     cY = (top[1]+bottom[1]) // 2
     
-    print('top: ',top)
-    print('bottom: ',bottom)
-    print('left: ',left)
-    print('right: ',right)
-    print('cX: ',cX)
-    print('cY: ',cY)
-    print('[cX,cY]: ',[cX,cY])
-    print('[left,right,top,bottom]: ',[left,right,top,bottom])
+    # print('top: ',top)
+    # print('bottom: ',bottom)
+    # print('left: ',left)
+    # print('right: ',right)
+    # print('cX: ',cX)
+    # print('cY: ',cY)
+    # print('[cX,cY]: ',[cX,cY])
+    # print('[left,right,top,bottom]: ',[left,right,top,bottom])
     
     
-    distance = pairwise.euclidean_distances([cX,cY],Y=[left,right,top,bottom])[0]
+    distance = pairwise.euclidean_distances([[cX,cY]],Y=[left,right,top,bottom])[0]
     
     max_distance = distance.max()
     
     radius = int(0.9*max_distance)
     circumfrence = (2*np.pi*radius)
     
-    circular_roi = np.zeros(thresholded[:2],dtype='uint8')
+    circular_roi = np.zeros(thresholded.shape[:2],dtype='uint8')
     
     cv2.circle(circular_roi,(cX,cY),radius,255,10)
     
     circular_roi = cv2.bitwise_and(thresholded,thresholded,mask=circular_roi)
     
-    image,contours,hierarchy = cv2.findContours(circular_roi.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    contours,hierarchy = cv2.findContours(circular_roi.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     
     count = 0
     
